@@ -135,6 +135,12 @@ As you can see the CLI asks the user for all needed data and provides the user w
 The rest of the commands have the same flow, just read what it asks for :)
 
 
+Demo
+----
+
+![](example.gif)
+
+
 Dependencies
 ------------
 - [ffmpeg-python](https://github.com/kkroening/ffmpeg-python)
