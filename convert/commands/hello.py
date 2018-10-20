@@ -1,8 +1,3 @@
-"""The hello command."""
-
-
-from json import dumps
-
 from .base import Base
 
 

@@ -13,7 +13,7 @@ from convert import __version__
 
 
 this_dir = abspath(dirname(__file__))
-with open(join(this_dir, 'README.rst'), encoding='utf-8') as file:
+with open(join(this_dir, 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
 
 
@@ -31,16 +31,16 @@ class RunTests(Command):
     def run(self):
         """Run all tests!"""
         errno = call(
-            ['py.test', '--cov=convert-cli', '--cov-report=term-missing'])
+            ['py.test', '--cov=converter-cli', '--cov-report=term-missing'])
         raise SystemExit(errno)
 
 
 setup(
-    name='convert-cli',
+    name='converter-cli',
     version=__version__,
     description='A media converter command line program in Python.',
     long_description=long_description,
-    url='https://github.com/patillacode/convert-cli',
+    url='https://github.com/patillacode/converter-cli',
     author='Patilla Code',
     author_email='patillacode@gmail.com',
     license='Apache 2.0',
@@ -60,7 +60,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'convert-cli=convert.cli:main',
+            'converter-cli=convert.cli:main',
         ],
     },
     cmdclass={'test': RunTests},

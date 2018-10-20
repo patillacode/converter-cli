@@ -1,14 +1,14 @@
 """
-convert-cli
+converter-cli
 
 Usage:
-  convert-cli hello
-  convert-cli audio
-  convert-cli audio [-m | --multiple | --verbose]
-  convert-cli video
-  convert-cli video [-m | --multiple | --verbose]
-  convert-cli -h | --help
-  convert-cli -v | --version
+  converter-cli hello
+  converter-cli audio
+  converter-cli audio [-m | --multiple | --verbose]
+  converter-cli video
+  converter-cli video [-m | --multiple | --verbose]
+  converter-cli -h | --help
+  converter-cli -v | --version
 
 Options:
   -h --help                         Show this screen.
@@ -21,7 +21,7 @@ Examples:
 
 Help:
   For help using this tool, please open an issue on the Github repository:
-  https://github.com/patillacode/convert-cli
+  https://github.com/patillacode/converter-cli
 """
 
 

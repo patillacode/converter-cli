@@ -19,18 +19,27 @@ It does NOT cover all ffmpeg options (I just wanted a few) but it is possible to
 Install & Run
 -------------
 
-Plug & Play::
+Plug & Play:
+
     $ pip install converter-cli
 
-If you want to play around with the code I'd recommend creating a virtual environment::
+
+If you want to play around with the code I'd recommend creating a virtual environment:
+
     $ mkvirtualenv --python=/usr/local/bin/python3 converter-cli
-And then::
+
+
+And then:
+
     $ git clone
+
     $ cd converter-cli
+
     $ python setup.py develop
 
 
-Run::
+Run:
+
     $ converter-cli
 
 
