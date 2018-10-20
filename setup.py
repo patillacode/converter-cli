@@ -40,6 +40,7 @@ setup(
     version=__version__,
     description='A media converter command line program in Python.',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/patillacode/converter-cli',
     author='Patilla Code',
     author_email='patillacode@gmail.com',
