@@ -1,5 +1,7 @@
 from .base import Base
 
+from .utils import let_user_pick
+
 
 class Video(Base):
     """Get user input to execute different video conversions"""
@@ -57,5 +59,5 @@ class Video(Base):
         }
 
     def run(self):
-        """"""
-        self.convert(self.conversion_map[self.let_user_pick()])
+        """Run the Video command."""
+        self.convert(self.conversion_map[let_user_pick(self.conversion_map)])

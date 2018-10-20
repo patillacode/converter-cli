@@ -25,10 +25,9 @@ Help:
 """
 
 
+from docopt import docopt
 from inspect import getmembers
 from inspect import isclass
-
-from docopt import docopt
 
 from . import __version__ as VERSION
 
