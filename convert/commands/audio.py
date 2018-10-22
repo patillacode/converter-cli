@@ -1,6 +1,7 @@
 from .base import Base
 
 from .utils import let_user_pick
+from .utils import run_ffmpeg
 
 
 class Audio(Base):
@@ -28,4 +29,7 @@ class Audio(Base):
 
     def run(self):
         """Run the Audio command."""
-        self.convert(self.conversion_map[let_user_pick(self.conversion_map)])
+        chosen_option = let_user_pick(self.conversion_map)
+        source_path, output_path, params = self.get_user_input(
+            self.conversion_map[chosen_option])
+        run_ffmpeg(source_path, output_path, params, self.options)
