@@ -8,7 +8,7 @@ class Audio(Base):
     """Get user input to execute different video conversions"""
 
     def __init__(self, options, *args, **kwargs):
-        super(Audio, self).__init__(options, *args, **kwargs)
+        super().__init__(options, *args, **kwargs)
         self.conversion_map = {
             1: {
                 'option_text': 'Convert to .mp3 (320k)',
