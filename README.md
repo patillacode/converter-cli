@@ -7,7 +7,7 @@ converter-cli
 Purpose
 -------
 
-This is a custom Python CLI for converting media files
+This is a custom Python (3) CLI for converting media files
 
 I've done this to make it easy to convert my media files into different
 formats, bitrates and whatnot without having to remember the ffmpeg syntax for
@@ -24,7 +24,7 @@ Plug & Play:
     $ pip install converter-cli
 
 
-If you want to play around with the code I'd recommend creating a virtual environment:
+If you want to play around with the code I'd recommend creating a virtual environment (with python3):
 
     $ mkvirtualenv --python=/usr/local/bin/python3 converter-cli
 
