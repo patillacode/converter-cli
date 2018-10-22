@@ -1,8 +1,6 @@
 import os
 import sys
 
-import ffmpeg
-
 from termcolor import colored
 
 from .utils import clear
@@ -60,7 +58,7 @@ class Base(object):
 
         return True
 
-    def convert(self, conversion_data):
+    def get_user_input(self, conversion_data):
         """Set all needed variables via user input for the conversion.
 
         :param conversion_data: command based data (see command init)
@@ -106,8 +104,7 @@ class Base(object):
                     output_path = '{}{}.{}'.format(
                         destination, source_name, conversion_data['extension'])
 
-                    self.run_ffmpeg(
-                        source_path, output_path, conversion_data['params'])
+                    return source_path, output_path, conversion_data['params']
 
         else:
 
@@ -122,42 +119,7 @@ class Base(object):
             # clear screen
             clear()
 
-            self.run_ffmpeg(
-                source_path, output_path, conversion_data['params'])
-
-        prmsg('completed')
-
-    def run_ffmpeg(self, source_path, output_path, params):
-        """Trigger ffmpeg command via the ffmpeg-python lib and given params.
-
-        :param source_path: source media file path
-        :type source_path: string
-        :param output_path: output media file path
-        :type output_path: string
-        :param params: ffmpeg command options
-        :type params: dict
-        """
-
-        try:
-            if not self.options['--verbose']:
-                prmsg('converting',
-                      **{
-                        'source_path': source_path,
-                        'output_path': output_path})
-            (
-                ffmpeg
-                .input(source_path)
-                .output(
-                    output_path,
-                    **params,
-                )
-                .overwrite_output()
-                .run(quiet=not(self.options['--verbose']))
-            )
-
-        except Exception as exc:
-            prmsg('exception', **{'exc': exc})
-            sys.exit(1)
+            return source_path, output_path, conversion_data['params']
 
     def run(self):
         """All commands must implement this method."""

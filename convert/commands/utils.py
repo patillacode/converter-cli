@@ -1,6 +1,8 @@
 import os
 import sys
 
+import ffmpeg
+
 from termcolor import colored
 
 
@@ -178,3 +180,39 @@ def clear():
         command = 'clear'
 
     os.system(command)
+
+
+def run_ffmpeg(source_path, output_path, ffmpeg_params, options):
+    """Trigger ffmpeg command via the ffmpeg-python lib and given params.
+
+    :param source_path: source media file path
+    :type source_path: string
+    :param output_path: output media file path
+    :type output_path: string
+    :param ffmpeg_params: ffmpeg command options
+    :type ffmpeg_params: dict
+    :param options: command options
+    :type options: dict
+    """
+
+    try:
+        if not options['--verbose']:
+            print_message(
+                'converting',
+                **{'source_path': source_path,
+                   'output_path': output_path})
+        (
+            ffmpeg
+            .input(source_path)
+            .output(
+                output_path,
+                **ffmpeg_params,
+            )
+            .overwrite_output()
+            .run(quiet=not(options['--verbose']))
+        )
+        print_message('completed')
+
+    except Exception as exc:
+        print_message('exception', **{'exc': exc})
+        sys.exit(1)
