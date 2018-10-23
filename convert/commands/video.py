@@ -60,7 +60,7 @@ class Video(Base):
         }
 
     def run(self):
-        """Run the Audio command."""
+        """Run the Video command."""
         chosen_option = let_user_pick(self.conversion_map)
         source_path, output_path, params = self.get_user_input(
             self.conversion_map[chosen_option])
