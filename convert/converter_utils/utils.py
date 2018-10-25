@@ -182,6 +182,13 @@ def clear():
     os.system(command)
 
 
+def user_confirmed(confirmation):
+    if confirmation in ('y', 'yes', 'Y', ''):
+        return True
+
+    return False
+
+
 def run_ffmpeg(source_path, output_path, ffmpeg_params, options):
     """Trigger ffmpeg command via the ffmpeg-python lib and given params.
 

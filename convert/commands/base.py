@@ -8,13 +8,14 @@ from ..converter_utils import multi_source
 from ..converter_utils import print_message as prmsg
 from ..converter_utils import single_source
 from ..converter_utils import validate_path
+from ..converter_utils import user_confirmed
 
 
 class Base(object):
     """A base command."""
 
     def __init__(self, options, *args, **kwargs):
-        """Creates the Base object (a command object).
+        """Create the Base object (a command object).
 
         :param options: command options
         :type options: dict
@@ -26,7 +27,7 @@ class Base(object):
         clear()
 
     def confirm_multiple(self, ori_ext, ori_folder, out_ext, out_folder):
-        """"""
+        """Confirm conversion menu"""
         prmsg('confirm_multi',
               **{
                 'ori_ext': ori_ext,
@@ -37,10 +38,7 @@ class Base(object):
         confirmation = input(
             colored('\nPlease confirm action above [y/n]: ', 'red'))
 
-        if confirmation not in ('y', ''):
-            return False
-
-        return True
+        return user_confirmed(confirmation)
 
     def confirm_single(self, ori_path, out_ext, out_folder):
         """"""
@@ -53,10 +51,7 @@ class Base(object):
         confirmation = input(
             colored('\nPlease confirm action above [y/n]: ', 'red'))
 
-        if confirmation not in ('y', ''):
-            return False
-
-        return True
+        return user_confirmed(confirmation)
 
     def get_user_input(self, conversion_data):
         """Set all needed variables via user input for the conversion.
