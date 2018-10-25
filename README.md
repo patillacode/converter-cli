@@ -58,9 +58,9 @@ Full command list follows:
     Usage:
         converter-cli hello
         converter-cli audio
-        converter-cli audio [-m | --multiple | --verbose | --n | --no-confirm]
+        converter-cli audio [-m | --multiple] [--verbose] [-n | --no-confirm]
         converter-cli video
-        converter-cli video [-m | --multiple | --verbose | --n | --no-confirm]
+        converter-cli video [-m | --multiple] [--verbose] [-n | --no-confirm]
         converter-cli -h | --help
         converter-cli -v | --version
 
@@ -76,7 +76,8 @@ By default the CLI will be used to convert one file, but the `-m`/`--multiple` o
 
     $ converter-cli video -m
 
-Also by default the CLi will hide the output of the ffmpeg command unless the `--verbose` option is specified:
+Also by default, the CLi will hide the output of the ffmpeg command in favor of a more readable custom line,
+unless the `--verbose` option is specified:
 
     $ converter-cli audio --verbose
 
@@ -106,7 +107,7 @@ Here we will enter something like `/path/to/file/music.wav` and hit enter.
 Notice if your click enter without specifying any path then the output file will
 be in the same directory as the source file `/path/to/file/`
 
-Next thing to happen will be:
+Next thing to happen will be (unless the `--no-confirm option` was given):
 
 
                       WARNING
