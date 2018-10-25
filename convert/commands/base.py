@@ -79,16 +79,18 @@ class Base(object):
         # display warning
         prmsg('warning')
 
+        # multiple files flow
         if self.options['--multiple']:
+            # do not show confirmation message if the option is enabled
+            if not self.options['--no-confirm']:
+                if not self.confirm_multiple(source_extension,
+                                             source_folder,
+                                             conversion_data['extension'],
+                                             destination):
+                    sys.exit(2)
 
-            if not self.confirm_multiple(source_extension,
-                                         source_folder,
-                                         conversion_data['extension'],
-                                         destination):
-                sys.exit(2)
-
-            # clear screen
-            clear()
+                # clear screen
+                clear()
 
             folder = os.fsencode(source_folder)
             for file in os.listdir(folder):
@@ -106,18 +108,19 @@ class Base(object):
 
                     return source_path, output_path, conversion_data['params']
 
+        # single file flow
         else:
+            # do not show confirmation message if the option is enabled
+            if not self.options['--no-confirm']:
+                if not self.confirm_single(source_path,
+                                           conversion_data['extension'],
+                                           destination):
+                    sys.exit(2)
 
-            if not self.confirm_single(source_path,
-                                       conversion_data['extension'],
-                                       destination):
-                sys.exit(2)
-
+                # clear screen
+                clear()
             output_path = '{}{}.{}'.format(
                 destination, source_name, conversion_data['extension'])
-
-            # clear screen
-            clear()
 
             return source_path, output_path, conversion_data['params']
 
