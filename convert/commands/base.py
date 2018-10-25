@@ -3,11 +3,11 @@ import sys
 
 from termcolor import colored
 
-from .utils import clear
-from .utils import multi_source
-from .utils import print_message as prmsg
-from .utils import single_source
-from .utils import validate_path
+from ..converter_utils import clear
+from ..converter_utils import multi_source
+from ..converter_utils import print_message as prmsg
+from ..converter_utils import single_source
+from ..converter_utils import validate_path
 
 
 class Base(object):
