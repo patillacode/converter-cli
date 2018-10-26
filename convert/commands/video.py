@@ -1,13 +1,15 @@
 from .base import Base
 
-from .utils import let_user_pick
+from ..converter_utils import let_user_pick
+from ..converter_utils import print_message as prmsg
+from ..converter_utils import run_ffmpeg
 
 
 class Video(Base):
     """Get user input to execute different video conversions"""
 
     def __init__(self, options, *args, **kwargs):
-        super(Video, self).__init__(options, *args, **kwargs)
+        super().__init__(options, *args, **kwargs)
         self.conversion_map = {
             1: {
                 'option_text': 'Convert to .mp4',
@@ -60,4 +62,9 @@ class Video(Base):
 
     def run(self):
         """Run the Video command."""
-        self.convert(self.conversion_map[let_user_pick(self.conversion_map)])
+        chosen_option = let_user_pick(self.conversion_map)
+        source_path, output_paths, params = self.get_user_input(
+            self.conversion_map[chosen_option])
+        for output_path in output_paths:
+            run_ffmpeg(source_path, output_path, params, self.options)
+        prmsg('completed')
