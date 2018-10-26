@@ -4,9 +4,9 @@ converter-cli
 Usage:
   converter-cli hello
   converter-cli audio
-  converter-cli audio [-m | --multiple | --verbose | -n | --no-confirm]
+  converter-cli audio [-m | --multiple] [--verbose] [-n | --no-confirm]
   converter-cli video
-  converter-cli video [-m | --multiple | --verbose | -n | --no-confirm]
+  converter-cli video [-m | --multiple] [--verbose] [-n | --no-confirm]
   converter-cli -h | --help
   converter-cli -v | --version
 
