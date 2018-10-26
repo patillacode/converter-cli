@@ -1,9 +1,9 @@
 import os
-import sys
 
 from termcolor import colored
 
 from ..converter_utils import clear
+from ..converter_utils import confirmator
 from ..converter_utils import multi_source
 from ..converter_utils import print_message as prmsg
 from ..converter_utils import single_source
@@ -14,7 +14,7 @@ class Base(object):
     """A base command."""
 
     def __init__(self, options, *args, **kwargs):
-        """Creates the Base object (a command object).
+        """Create the Base object (a command object).
 
         :param options: command options
         :type options: dict
@@ -25,44 +25,17 @@ class Base(object):
         self.kwargs = kwargs
         clear()
 
-    def confirm_multiple(self, ori_ext, ori_folder, out_ext, out_folder):
-        """"""
-        prmsg('confirm_multi',
-              **{
-                'ori_ext': ori_ext,
-                'ori_folder': ori_folder,
-                'out_ext': out_ext,
-                'out_folder': out_folder})
-
-        confirmation = input(
-            colored('\nPlease confirm action above [y/n]: ', 'red'))
-
-        if confirmation not in ('y', ''):
-            return False
-
-        return True
-
-    def confirm_single(self, ori_path, out_ext, out_folder):
-        """"""
-        prmsg('confirm_single',
-              **{
-                'ori_path': ori_path,
-                'out_ext': out_ext,
-                'out_folder': out_folder})
-
-        confirmation = input(
-            colored('\nPlease confirm action above [y/n]: ', 'red'))
-
-        if confirmation not in ('y', ''):
-            return False
-
-        return True
-
     def get_user_input(self, conversion_data):
         """Set all needed variables via user input for the conversion.
 
         :param conversion_data: command based data (see command init)
-        :type source_path: dict
+        :type conversion_data: dict
+        :returns: source_path
+                  output_paths
+                  conversion_data_params
+        :rtype: string
+                list
+                list
         """
 
         if self.options['--multiple']:
@@ -76,19 +49,19 @@ class Base(object):
             "(Enter for same folder as source): ", 'green')) or default_folder
         destination = validate_path(destination, 'folder')
 
-        # display warning
-        prmsg('warning')
+        output_paths = []
 
+        # multiple files flow
         if self.options['--multiple']:
+            confirmator(
+                self.options,
+                **{'ori_ext': source_extension,
+                   'ori_folder': source_folder,
+                   'out_ext': conversion_data['extension'],
+                   'out_folder': destination})
 
-            if not self.confirm_multiple(source_extension,
-                                         source_folder,
-                                         conversion_data['extension'],
-                                         destination):
-                sys.exit(2)
-
-            # clear screen
-            clear()
+            # output_paths = get_multiple_outputs(
+            #     source_folder, source_extension)
 
             folder = os.fsencode(source_folder)
             for file in os.listdir(folder):
@@ -103,23 +76,21 @@ class Base(object):
                 if source_ext == '.{}'.format(source_extension):
                     output_path = '{}{}.{}'.format(
                         destination, source_name, conversion_data['extension'])
+                    output_paths.append(output_path)
 
-                    return source_path, output_path, conversion_data['params']
-
+        # single file flow
         else:
+            # do not show confirmation message if the option is enabled
+            confirmator(
+                self.options,
+                **{'ori_path': source_path,
+                   'out_ext': conversion_data['extension'],
+                   'out_folder': destination})
 
-            if not self.confirm_single(source_path,
-                                       conversion_data['extension'],
-                                       destination):
-                sys.exit(2)
+            output_paths = ['{}{}.{}'.format(
+                destination, source_name, conversion_data['extension'])]
 
-            output_path = '{}{}.{}'.format(
-                destination, source_name, conversion_data['extension'])
-
-            # clear screen
-            clear()
-
-            return source_path, output_path, conversion_data['params']
+        return source_path, output_paths, conversion_data['params']
 
     def run(self):
         """All commands must implement this method."""

@@ -1,6 +1,7 @@
 from .base import Base
 
 from ..converter_utils import let_user_pick
+from ..converter_utils import print_message as prmsg
 from ..converter_utils import run_ffmpeg
 
 
@@ -62,6 +63,8 @@ class Video(Base):
     def run(self):
         """Run the Video command."""
         chosen_option = let_user_pick(self.conversion_map)
-        source_path, output_path, params = self.get_user_input(
+        source_path, output_paths, params = self.get_user_input(
             self.conversion_map[chosen_option])
-        run_ffmpeg(source_path, output_path, params, self.options)
+        for output_path in output_paths:
+            run_ffmpeg(source_path, output_path, params, self.options)
+        prmsg('completed')

@@ -4,9 +4,9 @@ converter-cli
 Usage:
   converter-cli hello
   converter-cli audio
-  converter-cli audio [-m | --multiple | --verbose]
+  converter-cli audio [-m | --multiple] [--verbose] [-n | --no-confirm]
   converter-cli video
-  converter-cli video [-m | --multiple | --verbose]
+  converter-cli video [-m | --multiple] [--verbose] [-n | --no-confirm]
   converter-cli -h | --help
   converter-cli -v | --version
 
@@ -14,6 +14,7 @@ Options:
   -h --help                         Show this screen.
   -v --version                      Show version.
   -m --multiple                     Convert all files within a given folder
+  -n --no-confirm                   Avoid user confirmation before converting
   --verbose                         Redirect converting process to stdout
 
 Examples:
