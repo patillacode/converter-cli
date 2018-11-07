@@ -57,7 +57,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests*']),
     install_requires=['docopt', 'ffmpeg-python', 'termcolor'],
     extras_require={
-        'test': ['coverage', 'pytest', 'pytest-cov'],
+        'test': ['coverage', 'pytest', 'pytest-cov', 'mock'],
     },
     entry_points={
         'console_scripts': [

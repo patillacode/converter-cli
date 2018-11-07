@@ -24,16 +24,18 @@ Plug & Play:
     $ pip3 install converter-cli
 
 
-If you want to play around with the code I'd recommend creating a virtual environment (with python3):
+If you want to play around with the code I'd recommend creating a virtual environment first (with python3):
 
     $ mkvirtualenv --python=/usr/local/bin/python3 converter-cli
 
 
 And then:
 
-    $ git clone
+    $ git clone https://github.com/patillacode/converter-cli.git
 
     $ cd converter-cli
+
+    $ pip install -r requirements-dev.txt
 
     $ python setup.py develop
 
@@ -145,7 +147,7 @@ The rest of the commands have the same flow, just read what it asks for :)
 Demo
 ----
 
-![](example.gif)
+[![asciicast](https://asciinema.org/a/210664.svg)](https://asciinema.org/a/210664)
 
 
 Dependencies
