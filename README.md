@@ -21,7 +21,7 @@ Install
 
 Plug & Play:
 
-    $ pip install converter-cli
+    $ pip3 install converter-cli
 
 
 If you want to play around with the code I'd recommend creating a virtual environment (with python3):
@@ -37,6 +37,11 @@ And then:
 
     $ python setup.py develop
 
+
+Unit Tests
+----------
+
+    $ py.test tests
 
 Usage
 -----
