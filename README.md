@@ -28,6 +28,10 @@ If you want to play around with the code I'd recommend creating a virtual enviro
 
     $ mkvirtualenv --python=/usr/local/bin/python3 converter-cli
 
+This should also work:
+
+    $ python3 -m venv /path/to/new/virtual/environment
+
 
 And then:
 
