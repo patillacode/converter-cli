@@ -1,4 +1,6 @@
-converter-cli
+[![Downloads](https://pepy.tech/badge/converter-cli)](https://pepy.tech/project/converter-cli)
+
+converter-cli         
 =============
 
 *A media converter command line program in Python.*
