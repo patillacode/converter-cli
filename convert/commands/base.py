@@ -2,12 +2,9 @@ import os
 
 from termcolor import colored
 
-from ..converter_utils import clear
-from ..converter_utils import confirmator
-from ..converter_utils import multi_source
+from ..converter_utils import clear, confirmator, multi_source
 from ..converter_utils import print_message as prmsg
-from ..converter_utils import single_source
-from ..converter_utils import validate_path
+from ..converter_utils import single_source, validate_path
 
 
 class Base(object):
@@ -30,7 +27,7 @@ class Base(object):
 
         :param conversion_data: command based data (see command init)
         :type conversion_data: dict
-        :returns: source_path
+        :returns: source_paths
                   output_paths
                   conversion_data_params
         :rtype: string
@@ -49,6 +46,7 @@ class Base(object):
             "(Enter for same folder as source): ", 'green')) or default_folder
         destination = validate_path(destination, 'folder')
 
+        source_paths = []
         output_paths = []
 
         # multiple files flow
@@ -59,9 +57,6 @@ class Base(object):
                    'ori_folder': source_folder,
                    'out_ext': conversion_data['extension'],
                    'out_folder': destination})
-
-            # output_paths = get_multiple_outputs(
-            #     source_folder, source_extension)
 
             folder = os.fsencode(source_folder)
             for file in os.listdir(folder):
@@ -74,6 +69,7 @@ class Base(object):
 
                 # check extension fits
                 if source_ext == '.{}'.format(source_extension):
+                    source_paths.append(source_path)
                     output_path = '{}{}.{}'.format(
                         destination, source_name, conversion_data['extension'])
                     output_paths.append(output_path)
@@ -87,10 +83,11 @@ class Base(object):
                    'out_ext': conversion_data['extension'],
                    'out_folder': destination})
 
+            source_paths = [source_path]
             output_paths = ['{}{}.{}'.format(
                 destination, source_name, conversion_data['extension'])]
 
-        return source_path, output_paths, conversion_data['params']
+        return source_paths, output_paths, conversion_data['params']
 
     def run(self):
         """All commands must implement this method."""
