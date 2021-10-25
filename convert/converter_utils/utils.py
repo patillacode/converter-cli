@@ -2,7 +2,6 @@ import os
 import sys
 
 import ffmpeg
-
 from termcolor import colored
 
 
@@ -135,26 +134,26 @@ def let_user_pick(conversion_map):
 
 
 def validate_path(path, path_type):
-        valid = True
-        if path_type not in ('file', 'folder'):
-            print_message('wrong_path_option', **{'path_type': path_type})
-            sys.exit(1)
+    valid = True
+    if path_type not in ('file', 'folder'):
+        print_message('wrong_path_option', **{'path_type': path_type})
+        sys.exit(1)
 
-        elif path_type == 'file':
-            if not os.path.isfile(path):
-                valid = False
+    elif path_type == 'file':
+        if not os.path.isfile(path):
+            valid = False
 
-        elif path_type == 'folder':
-            if path[-1] != '/':
-                path = path + '/'
-            if not os.path.exists(path):
-                valid = False
+    elif path_type == 'folder':
+        if path[-1] != '/':
+            path = path + '/'
+        if not os.path.exists(path):
+            valid = False
 
-        if not valid:
-            print_message('invalid_path', **{'path': path})
-            sys.exit(2)
+    if not valid:
+        print_message('invalid_path', **{'path': path})
+        sys.exit(2)
 
-        return path
+    return path
 
 
 def single_source():
@@ -198,37 +197,37 @@ def user_confirmed(confirmation):
 
 
 def confirmator(options, **kwargs):
-        """"""
-        # Show confirmation message when the --no-confirm option is missing
-        if not options['--no-confirm']:
-            # display warning
-            print_message('warning')
+    """"""
+    # Show confirmation message when the --no-confirm option is missing
+    if not options['--no-confirm']:
+        # display warning
+        print_message('warning')
 
-            if options['--multiple']:
-                print_message(
-                    'confirm_multi',
-                    **{
-                       'ori_ext': kwargs['ori_ext'],
-                       'ori_folder': kwargs['ori_folder'],
-                       'out_ext': kwargs['out_ext'],
-                       'out_folder': kwargs['out_folder']})
+        if options['--multiple']:
+            print_message(
+                'confirm_multi',
+                **{
+                    'ori_ext': kwargs['ori_ext'],
+                    'ori_folder': kwargs['ori_folder'],
+                    'out_ext': kwargs['out_ext'],
+                    'out_folder': kwargs['out_folder']})
 
-            else:
-                print_message(
-                    'confirm_single',
-                    **{
-                       'ori_path': kwargs['ori_path'],
-                       'out_ext': kwargs['out_ext'],
-                       'out_folder': kwargs['out_folder']})
+        else:
+            print_message(
+                'confirm_single',
+                **{
+                    'ori_path': kwargs['ori_path'],
+                    'out_ext': kwargs['out_ext'],
+                    'out_folder': kwargs['out_folder']})
 
-            confirmation = input(
-                colored('\nPlease confirm action above [y/n]: ', 'red'))
+        confirmation = input(
+            colored('\nPlease confirm action above [y/n]: ', 'red'))
 
-            if not user_confirmed(confirmation):
-                sys.exit(2)
-            else:
-                # clear screen
-                clear()
+        if not user_confirmed(confirmation):
+            sys.exit(2)
+        else:
+            # clear screen
+            clear()
 
 
 def run_ffmpeg(source_path, output_path, ffmpeg_params, options):
