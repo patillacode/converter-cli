@@ -8,26 +8,16 @@ from termcolor import colored
 def print_message(msg_type, **kwargs):
     """"""
     if msg_type == 'options':
-        print(
-            colored("\t{}) {}".format(kwargs['key'], kwargs['value']),
-                    'green')
-        )
+        print(colored("\t{}) {}".format(kwargs['key'], kwargs['value']), 'green'))
 
     elif msg_type == 'choose':
-        print(
-            colored('\nPlease choose an option:', 'magenta')
-        )
+        print(colored('\nPlease choose an option:', 'magenta'))
 
     elif msg_type == 'valid_option':
-        print(
-            colored('\n  Please enter a valid option\n', 'red')
-        )
+        print(colored('\n  Please enter a valid option\n', 'red'))
 
     elif msg_type == 'exception':
-        print(
-            colored('\nAn exception ocurred:', 'red'),
-            '{}'.format(kwargs['exc'])
-        )
+        print(colored('\nAn exception ocurred:', 'red'), '{}'.format(kwargs['exc']))
 
     elif msg_type == 'confirm_multi':
         print(
@@ -38,7 +28,7 @@ def print_message(msg_type, **kwargs):
             'into',
             colored('.{}'.format(kwargs['out_ext']), 'yellow'),
             'files to be saved in folder',
-            colored('{}'.format(kwargs['out_folder']), 'yellow')
+            colored('{}'.format(kwargs['out_folder']), 'yellow'),
         )
 
     elif msg_type == 'confirm_single':
@@ -48,22 +38,26 @@ def print_message(msg_type, **kwargs):
             'into a',
             colored('.{}'.format(kwargs['out_ext']), 'yellow'),
             'file to be saved in folder',
-            colored('{}'.format(kwargs['out_folder']), 'yellow')
+            colored('{}'.format(kwargs['out_folder']), 'yellow'),
         )
 
     elif msg_type == 'warning':
-        print(colored(
-            '                                                     \n'
-            '                      WARNING                        \n',
-            'red',
-            attrs=['bold', 'underline'])
+        print(
+            colored(
+                '                                                     \n'
+                '                      WARNING                        \n',
+                'red',
+                attrs=['bold', 'underline'],
+            )
         )
-        print(colored(
-            ' Output file will be called the same as the original \n'
-            ' with the proper extension (.mp4, .mp3, ...) which   \n'
-            ' may cause an overwrite - YOU HAVE BEEN WARNED       \n',
-            'red',
-            attrs=['reverse', 'bold'])
+        print(
+            colored(
+                ' Output file will be called the same as the original \n'
+                ' with the proper extension (.mp4, .mp3, ...) which   \n'
+                ' may cause an overwrite - YOU HAVE BEEN WARNED       \n',
+                'red',
+                attrs=['reverse', 'bold'],
+            )
         )
 
     elif msg_type == 'wrong_path_option':
@@ -71,23 +65,21 @@ def print_message(msg_type, **kwargs):
             colored('Wrong path type', 'red'),
             colored('{}'.format(kwargs['path_type']), 'yellow'),
             colored('only valid values are', 'red'),
-            colored('[file, folder]', 'yellow')
+            colored('[file, folder]', 'yellow'),
         )
 
     elif msg_type == 'invalid_path':
         print(
             colored('\nGiven path is not valid, please confirm', 'red'),
             colored(kwargs['path'], 'yellow'),
-            colored('has no typos.\n', 'red')
+            colored('has no typos.\n', 'red'),
         )
 
     elif msg_type == 'completed':
         print(
             colored('\n(っ◕‿◕)っ   ', 'magenta'),
-            colored('Conversion completed',
-                    'green',
-                    attrs=['bold']),
-            colored('   ⊂(´･◡･⊂ )∘˚\n', 'magenta')
+            colored('Conversion completed', 'green', attrs=['bold']),
+            colored('   ⊂(´･◡･⊂ )∘˚\n', 'magenta'),
         )
 
     elif msg_type == 'converting':
@@ -96,7 +88,7 @@ def print_message(msg_type, **kwargs):
             colored('{}'.format(kwargs['source_path']), 'yellow'),
             'into output',
             colored('{}'.format(kwargs['output_path']), 'yellow'),
-            '... '
+            '... ',
         )
 
 
@@ -110,12 +102,9 @@ def let_user_pick(conversion_map):
     print_message('choose')
 
     for key, value in conversion_map.items():
-        print_message(
-            'options',
-            **{'key': key, 'value': value['option_text']})
+        print_message('options', **{'key': key, 'value': value['option_text']})
 
-    i = input(
-        colored("Enter option number: ", 'magenta'))
+    i = input(colored("Enter option number: ", 'magenta'))
 
     try:
         try:
@@ -157,8 +146,7 @@ def validate_path(path, path_type):
 
 
 def single_source():
-    source_path = input(
-        colored("Enter path to source file: ", 'magenta'))
+    source_path = input(colored("Enter path to source file: ", 'magenta'))
     source_path = validate_path(source_path, 'file')
     source_name = os.path.splitext(os.path.split(source_path)[1])[0]
     source_folder = os.path.splitext(os.path.split(source_path)[0])[0]
@@ -168,12 +156,18 @@ def single_source():
 
 def multi_source():
     source_folder = input(
-        colored("Enter path to source folder containing all files to "
-                "be converted: ", 'green'))
+        colored(
+            "Enter path to source folder containing all files to " "be converted: ",
+            'green',
+        )
+    )
     source_folder = validate_path(source_folder, 'folder')
     source_extension = input(
-        colored("Enter extension of source files to be converted "
-                "(mp4, mp3, ...): ", 'green'))
+        colored(
+            "Enter extension of source files to be converted " "(mp4, mp3, ...): ",
+            'green',
+        )
+    )
 
     return source_folder, source_extension
 
@@ -210,7 +204,9 @@ def confirmator(options, **kwargs):
                     'ori_ext': kwargs['ori_ext'],
                     'ori_folder': kwargs['ori_folder'],
                     'out_ext': kwargs['out_ext'],
-                    'out_folder': kwargs['out_folder']})
+                    'out_folder': kwargs['out_folder'],
+                },
+            )
 
         else:
             print_message(
@@ -218,10 +214,11 @@ def confirmator(options, **kwargs):
                 **{
                     'ori_path': kwargs['ori_path'],
                     'out_ext': kwargs['out_ext'],
-                    'out_folder': kwargs['out_folder']})
+                    'out_folder': kwargs['out_folder'],
+                },
+            )
 
-        confirmation = input(
-            colored('\nPlease confirm action above [y/n]: ', 'red'))
+        confirmation = input(colored('\nPlease confirm action above [y/n]: ', 'red'))
 
         if not user_confirmed(confirmation):
             sys.exit(2)
@@ -247,20 +244,18 @@ def run_ffmpeg(source_path, output_path, ffmpeg_params, options):
         # present user with information of happening conversion
         if not options['--verbose']:
             print_message(
-                'converting',
-                **{'source_path': source_path,
-                   'output_path': output_path})
+                'converting', **{'source_path': source_path, 'output_path': output_path}
+            )
 
         # run the actual ffmpeg command
         (
-            ffmpeg
-            .input(source_path)
+            ffmpeg.input(source_path)
             .output(
                 output_path,
                 **ffmpeg_params,
             )
             .overwrite_output()
-            .run(quiet=not(options['--verbose']))
+            .run(quiet=not (options['--verbose']))
         )
 
     except Exception as exc:

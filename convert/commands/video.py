@@ -17,8 +17,8 @@ class Video(Base):
                     'vcodec': 'libx264',
                     'crf': 20,
                     'acodec': 'aac',
-                    'strict': 'experimental'
-                }
+                    'strict': 'experimental',
+                },
             },
             2: {
                 'option_text': 'Convert to .mov',
@@ -28,16 +28,12 @@ class Video(Base):
                     'crf': 20,
                     'acodec': 'aac',
                     'f': 'mov',
-                }
+                },
             },
             3: {
                 'option_text': 'Convert to .flv',
                 'extension': 'flv',
-                'params': {
-                    'vcodec': 'flv1',
-                    'acodec': 'aac',
-                    'strict': 'experimental'
-                }
+                'params': {'vcodec': 'flv1', 'acodec': 'aac', 'strict': 'experimental'},
             },
             4: {
                 'option_text': 'Convert to .mkv',
@@ -45,7 +41,7 @@ class Video(Base):
                 'params': {
                     'vcodec': 'copy',
                     'acodec': 'copy',
-                }
+                },
             },
             5: {
                 'option_text': 'Extract audio (output in .mp3)',
@@ -55,15 +51,16 @@ class Video(Base):
                     'ac': '2',
                     'ab': '320k',
                     'f': 'mp3',
-                }
-            }
+                },
+            },
         }
 
     def run(self):
         """Run the Video command."""
         chosen_option = let_user_pick(self.conversion_map)
         source_paths, output_paths, params = self.get_user_input(
-            self.conversion_map[chosen_option])
+            self.conversion_map[chosen_option]
+        )
         for (source_path, output_path) in list(zip(source_paths, output_paths)):
             run_ffmpeg(source_path, output_path, params, self.options)
         prmsg('completed')

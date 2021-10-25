@@ -26,9 +26,9 @@ Help:
 """
 
 
+from inspect import getmembers, isclass
+
 from docopt import docopt
-from inspect import getmembers
-from inspect import isclass
 
 from . import __version__ as VERSION
 
@@ -36,6 +36,7 @@ from . import __version__ as VERSION
 def main():
     """Main CLI entrypoint."""
     import convert.commands
+
     options = docopt(__doc__, version=VERSION)
 
     # Here we'll try to dynamically match the command the user is trying to run
@@ -44,8 +45,8 @@ def main():
         if hasattr(convert.commands, k) and v:
             module = getattr(convert.commands, k)
             convert.commands = getmembers(module, isclass)
-            command = [command[1] for command
-                       in convert.commands
-                       if command[0] != 'Base'][0]
+            command = [
+                command[1] for command in convert.commands if command[0] != 'Base'
+            ][0]
             command = command(options)
             command.run()

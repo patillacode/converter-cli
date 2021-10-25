@@ -2,9 +2,8 @@ import os
 
 from termcolor import colored
 
-from ..converter_utils import clear, confirmator, multi_source
-from ..converter_utils import print_message as prmsg
-from ..converter_utils import single_source, validate_path
+from ..converter_utils import (clear, confirmator, multi_source, single_source,
+                               validate_path)
 
 
 class Base(object):
@@ -41,9 +40,16 @@ class Base(object):
             source_path, source_name, source_folder = single_source()
 
         default_folder = '{}'.format(source_folder)
-        destination = input(colored(
-            "Enter path to destination folder "
-            "(Enter for same folder as source): ", 'green')) or default_folder
+        destination = (
+            input(
+                colored(
+                    "Enter path to destination folder "
+                    "(Enter for same folder as source): ",
+                    'green',
+                )
+            )
+            or default_folder
+        )
         destination = validate_path(destination, 'folder')
 
         source_paths = []
@@ -53,10 +59,13 @@ class Base(object):
         if self.options['--multiple']:
             confirmator(
                 self.options,
-                **{'ori_ext': source_extension,
-                   'ori_folder': source_folder,
-                   'out_ext': conversion_data['extension'],
-                   'out_folder': destination})
+                **{
+                    'ori_ext': source_extension,
+                    'ori_folder': source_folder,
+                    'out_ext': conversion_data['extension'],
+                    'out_folder': destination,
+                },
+            )
 
             folder = os.fsencode(source_folder)
             for file in os.listdir(folder):
@@ -71,7 +80,8 @@ class Base(object):
                 if source_ext == '.{}'.format(source_extension):
                     source_paths.append(source_path)
                     output_path = '{}{}.{}'.format(
-                        destination, source_name, conversion_data['extension'])
+                        destination, source_name, conversion_data['extension']
+                    )
                     output_paths.append(output_path)
 
         # single file flow
@@ -79,17 +89,20 @@ class Base(object):
             # do not show confirmation message if the option is enabled
             confirmator(
                 self.options,
-                **{'ori_path': source_path,
-                   'out_ext': conversion_data['extension'],
-                   'out_folder': destination})
+                **{
+                    'ori_path': source_path,
+                    'out_ext': conversion_data['extension'],
+                    'out_folder': destination,
+                },
+            )
 
             source_paths = [source_path]
-            output_paths = ['{}{}.{}'.format(
-                destination, source_name, conversion_data['extension'])]
+            output_paths = [
+                '{}{}.{}'.format(destination, source_name, conversion_data['extension'])
+            ]
 
         return source_paths, output_paths, conversion_data['params']
 
     def run(self):
         """All commands must implement this method."""
-        raise NotImplementedError(
-            'You must implement the run() method yourself!')
+        raise NotImplementedError('You must implement the run() method yourself!')
